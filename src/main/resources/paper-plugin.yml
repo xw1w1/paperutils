@@ -1,0 +1,10 @@
+name: $name
+version: $version
+description: $description
+main: ru.epserv.deltabrix.paperutils.PaperUtils
+api-version: '1.20'
+
+commands:
+  nickname:
+  skin:
+  profilereset:
