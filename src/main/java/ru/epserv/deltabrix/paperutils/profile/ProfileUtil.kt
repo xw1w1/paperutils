@@ -1,9 +1,10 @@
-package ru.epserv.deltabrix.paperutils
+package ru.epserv.deltabrix.paperutils.profile
 
 import com.destroystokyo.paper.profile.PlayerProfile
 import com.destroystokyo.paper.profile.ProfileProperty
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
+import ru.epserv.deltabrix.paperutils.PaperUtils
 import java.util.*
 import kotlin.NoSuchElementException
 
@@ -13,7 +14,7 @@ class ProfileUtil {
             Bukkit.createProfile(nickname).update().thenAccept {
                 Bukkit.getScheduler().runTask(PaperUtils.instance(), Runnable {
                     val newProfile = Bukkit.createProfileExact(target.uniqueId, target.name)
-                    newProfile.setProperties(newProfile.properties)
+                    newProfile.setProperties(it.properties)
                     target.playerProfile = newProfile
                 })
             }
@@ -22,7 +23,7 @@ class ProfileUtil {
         fun name(target: Player, nickname: String) {
             Bukkit.createProfile(nickname).update().thenAccept {
                 Bukkit.getScheduler().runTask(PaperUtils.instance(), Runnable {
-                    val newProfile = Bukkit.createProfileExact(target.uniqueId, target.name)
+                    val newProfile = Bukkit.createProfileExact(target.uniqueId, nickname)
                     newProfile.setProperties(newProfile.properties.apply {
                         it.properties.add(ProfileProperty("originalUUID", target.uniqueId.toString()))
                         it.properties.add(ProfileProperty("originalName", target.name))

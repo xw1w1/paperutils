@@ -2,6 +2,7 @@ plugins {
     id("java")
     id("io.papermc.paperweight.userdev") version "1.5.5"
     id("xyz.jpenilla.run-paper") version "2.2.0"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
     kotlin("jvm") version "1.9.20-Beta2"
 }
 
@@ -18,7 +19,7 @@ tasks {
 
     compileJava {
         options.encoding = Charsets.UTF_8.name()
-        options.release.set(19)
+        options.release.set(17)
     }
 
     javadoc {
@@ -37,6 +38,15 @@ tasks {
             expand(props)
         }
     }
+
+}
+
+tasks.assemble {
+    dependsOn(tasks.reobfJar)
+}
+
+project.tasks.build {
+    dependsOn(tasks.shadowJar)
 }
 
 repositories {
@@ -44,5 +54,5 @@ repositories {
 }
 
 kotlin {
-    jvmToolchain(19)
+    jvmToolchain(17)
 }
